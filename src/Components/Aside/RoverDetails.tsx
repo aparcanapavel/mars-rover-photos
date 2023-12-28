@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function RoverDetails() {
   return (
     <aside className='cardItem basis-1/5 h-[calc(100vh-3rem-67.5px)] relative'>
-      <Image className='w-full rounded-full border-solid border-2 border-mainBG' src={'/headshot_1_1.jpg'} width={200} height={200} alt='Pavel'/>
+      < Image blurDataURL={'/headshot_1_1.jpg'} placeholder='blur' className='w-full rounded-full border-solid border-2 border-mainBG' src={'/headshot_1_1.jpg'} width={200} height={200} alt='Pavel'/>
       <ul className='flex flex-col text-center mt-4'>
         <li><Link className='aside-button' href={'/'}>Home</Link></li>
         <li><Link className='aside-button' target='_blank' href={'https://pavelaparcana.com'}>Portfolio</Link></li>
