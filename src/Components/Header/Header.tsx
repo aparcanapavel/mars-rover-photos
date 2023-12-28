@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Transition } from '@headlessui/react'
 
-// component should render a circular profile image on mobile. Clicking this image opens a dropdown menu with links to the homepage, pavelaparcana.com, github.com, and linkedin.com.
 export default function Header({ isMobile }: { isMobile: boolean }) {
-  // const [isOpen, setIsOpen] = React.useState(false);
   
   return (
     <div className="header cardItem flex row justify-between items-center max-lg:py-2">
@@ -21,7 +19,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
             >
               <Image
                 placeholder="blur"
-                blurDataURL={'/headshot_1_1.jpg'}
+                blurDataURL={'/headshot_1_1-blur.jpg'}
                 src={'/headshot_1_1.jpg'}
                 alt="Pavel"
                 width={40}

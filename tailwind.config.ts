@@ -8,15 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadowColor: {
+        white: 'rgba(255, 255, 255, 0.08)',
+      },
+      input: {
+        'background-color': 'transparent',
+      },
     },
     colors: {
       mainBG: '#181E26',
       cardBG: '#232C38', //#2B3440
       accent: {
         DEFAULT: '#516DA6',
-        '100': '#4D818C',
-        '200': '#4EA68D',
-        '300': '#334568',
+        '100': 'white',
+        '200': '#B3B3B3',
+        '300': '#2C3B59',
       }
     }
   },

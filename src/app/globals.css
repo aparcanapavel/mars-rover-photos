@@ -32,7 +32,7 @@ body {
     background-color: theme('colors.cardBG');
     border-radius: theme('borderRadius.md');
     padding: theme('spacing.4');
-    @apply transition-colors shadow-xl
+    @apply transition-colors shadow-md shadow-white
   }
 
   .aside-button {
@@ -41,5 +41,10 @@ body {
 
   .rover-button {
     @apply w-full rounded-sm mb-4 object-center object-cover aspect-square 
+  }
+
+  .sol-number-selector{
+    background-color: transparent;
+    @apply w-20 p-1 rounded-md border-2 border-accent-200
   }
 }

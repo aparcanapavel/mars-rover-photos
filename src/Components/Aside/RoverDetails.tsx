@@ -1,20 +1,74 @@
 import React from "react";
 import Image from 'next/image';
-import Link from 'next/link';
+import { nFormatter, parseDate } from "@/utils/misc";
 
-export default function RoverDetails() {
-  return (
-    <aside className='cardItem basis-1/5 h-[calc(100vh-3rem-67.5px)] relative'>
-      < Image blurDataURL={'/headshot_1_1.jpg'} placeholder='blur' className='w-full rounded-full border-solid border-2 border-mainBG' src={'/headshot_1_1.jpg'} width={200} height={200} alt='Pavel'/>
-      <ul className='flex flex-col text-center mt-4'>
-        <li><Link className='aside-button' href={'/'}>Home</Link></li>
-        <li><Link className='aside-button' target='_blank' href={'https://pavelaparcana.com'}>Portfolio</Link></li>
-        <li><Link className='aside-button' target='_blank' href={'https://github.com/aparcanapavel'}>GitHub</Link></li>
-        <li><Link className='aside-button' target='_blank' href={'https://www.linkedin.com/in/pavel-aparcana'}>LinkedIn</Link></li>
-      </ul>
-      <p className='text-center mt-4 absolute bottom-4'>Source: 
-        <a target='_blank' href={'https://api.nasa.gov/'} className='underline ml-1'>NASA API</a>
-      </p>
-    </aside>
-  )
+type RoverImgType = {
+  [key: string]: {
+    sharp: string,
+    blur: string
+  }
 }
+
+const roverImgs: RoverImgType = {
+  'curiosity': {
+    sharp: '/curiosity_rover.jpg',
+    blur: '/curiosity_rover-blur.jpg'
+  },
+  'opportunity': {
+    sharp: '/opportunity_rover.jpg',
+    blur: '/opportunity_rover-blur.jpg'
+  },
+  'spirit': {
+    sharp: '/spirit_rover.jpg',
+    blur: '/spirit_rover-blur.jpg'
+  }
+}
+
+type RoverDetailsProps = {
+  roverName: string;
+  roverManifestData: {
+    name: string;
+    total_photos: number;
+    status: string;
+    max_sol: number;
+    launch_date: string;
+    landing_date: string;
+  }
+}
+
+const RoverDetails: React.FC<RoverDetailsProps> = ({
+  roverName,
+  roverManifestData
+}: RoverDetailsProps) => (
+  <aside className="cardItem">
+    <div className="flex flex-row items-center mb-4">
+      <Image 
+        src={roverImgs[roverName].sharp} 
+        blurDataURL={roverImgs[roverName].blur} 
+        width={200} 
+        height={200} 
+        alt={roverManifestData.name}
+        className="rounded-full border-solid border-2 border-mainBG"
+      />
+      <div className="flex flex-row ml-4">
+        <div className="flex flex-col items-center">
+          <p>{nFormatter(roverManifestData.total_photos)}</p>
+          <p className="font-bold">Total Photos</p>
+        </div>
+        <div className="flex flex-col items-center md:mx-4 lg:mx-6">
+          <p>{roverManifestData.status}</p>
+          <p className="font-bold">Status</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <p>{roverManifestData.max_sol}</p>
+          <p className="font-bold">Sol</p>
+        </div>
+      </div>
+    </div>
+    <h2 className="font-bold text-lg">{roverManifestData.name}</h2>
+    <p>Launch Date: {parseDate(roverManifestData.launch_date)}</p>
+    <p>Landing Date: {parseDate(roverManifestData.landing_date)}</p>
+  </aside>
+);
+
+export default RoverDetails;

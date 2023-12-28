@@ -20,17 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en" className='overflow-hidden'>
       <body className={`${inter.className} bg-mainBG h-dvh pt-4 overflow-auto`}>
-        <main className='container mx-auto max-sm:px-2  min-h-[calc(100vh-2rem)]'>
+        <main className='container mx-auto max-sm:px-2  min-h-[calc(100vh-2rem)] lg:px-4'>
           {children}
         </main>
         <div className='bg-cardBG py-4 mt-4'>
           <div className='text-center text-white'>
-            © 2023 - {new Date().getFullYear()} <Link href={'https://pavelaparcana.com'} target='_blank' className='underline'>Pavel Aparcana</Link>
+            A Project by <Link href={'https://pavelaparcana.com'} target='_blank' className='underline'>Pavel Aparcana</Link>.
           </div>
         </div>
         <Image
           src={'/mars-bg.jpg'}
-          blurDataURL={'/mars-bg.jpg'}
+          blurDataURL={'/mars-bg-blur2.jpg'}
           placeholder='blur'
           alt='Mars'
           fill
