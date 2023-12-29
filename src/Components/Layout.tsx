@@ -14,7 +14,6 @@ const useMediaQuery = (width: number) => {
   const [targetReached, setTargetReached] = useState(false);
 
   const updateTarget = useCallback((e: { matches: any; }) => {
-    console.log('e',e)
     if (e.matches) {
       setTargetReached(true);
     } else {
@@ -51,7 +50,6 @@ const useMediaQuery = (width: number) => {
 
 export default function Layout({ children, isMobile }: LayoutProps) {
   const isBreakpoint = useMediaQuery(1024) || false;
-  console.log('isBreakpoint', isBreakpoint);
 
   return (
     <>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import RoverDetails from "@/Components/Aside/RoverDetails";
 import { Suspense } from "react";
 import RoverStage from "@/Components/Stage/RoverStage";
+import NumberSelector from "@/Components/Stage/NumberSelector";
 
 
 const getRoverManifestData = async (roverName: string) => {
@@ -47,9 +48,10 @@ const getRoverManifestData = async (roverName: string) => {
 export default async function RoverPage({ params, searchParams }: MetaDataGeneratorProps){
   const roverName: string = params['rover-name'];
   const isMobile = searchParams?.viewport === 'mobile';
+  const sol = searchParams?.sol ? Number(searchParams?.sol) : 1;
+  const page = searchParams?.page ? Number(searchParams?.page) : 1;
 
   const roverManifestData = await getRoverManifestData(roverName);
-  console.log('roverManifestData',roverManifestData)
 
   return (
     <Layout isMobile={isMobile}>
@@ -57,10 +59,18 @@ export default async function RoverPage({ params, searchParams }: MetaDataGenera
         roverName={roverName}
         roverManifestData={roverManifestData}
       />
+      <NumberSelector 
+        solTotal={roverManifestData?.max_sol}
+        roverName={roverName}
+        initialSol={sol}
+        page={page}
+      />
       <Suspense fallback={<div>Loading...</div>}>
         <RoverStage 
           roverName={roverName}
-          solTotal={roverManifestData?.total_photos}
+          solTotal={roverManifestData?.max_sol}
+          sol={sol}
+          page={page}
         />
       </Suspense>
       <Link href={'/'}>Back to Home</Link>

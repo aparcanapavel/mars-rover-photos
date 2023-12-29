@@ -60,7 +60,7 @@ const RoverDetails: React.FC<RoverDetailsProps> = ({
           <p className="font-bold">Status</p>
         </div>
         <div className="flex flex-col items-center">
-          <p>{roverManifestData.max_sol}</p>
+          <p>{nFormatter(roverManifestData.max_sol)}</p>
           <p className="font-bold">Sol</p>
         </div>
       </div>
