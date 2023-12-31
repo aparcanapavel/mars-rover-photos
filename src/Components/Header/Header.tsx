@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Transition } from '@headlessui/react'
 
-// component should render a circular profile image on mobile. Clicking this image opens a dropdown menu with links to the homepage, pavelaparcana.com, github.com, and linkedin.com.
 export default function Header({ isMobile }: { isMobile: boolean }) {
-  // const [isOpen, setIsOpen] = React.useState(false);
   
   return (
     <div className="header cardItem flex row justify-between items-center max-lg:py-2">
@@ -20,6 +18,8 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
               focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
             >
               <Image
+                placeholder="blur"
+                blurDataURL={'/headshot_1_1-blur.jpg'}
                 src={'/headshot_1_1.jpg'}
                 alt="Pavel"
                 width={40}
@@ -38,7 +38,8 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items 
+              className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-cardBG shadow-2xl">
               <div className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -56,6 +57,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
                   {({ active }) => (
                     <Link
                       href={'https://pavelaparcana.com'}
+                      target="_blank"
                       className={`${
                         active ? 'bg-violet-500 text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -68,6 +70,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
                   {({ active }) => (
                     <Link
                       href={'https://github.com/aparcanapavel'}
+                      target="_blank"
                       className={`${
                         active ? 'bg-violet-500 text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
@@ -80,6 +83,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
                   {({ active }) => (
                     <Link
                       href={'https://www.linkedin.com/in/pavel-aparcana'}
+                      target="_blank"
                       className={`${
                         active ? 'bg-violet-500 text-white' : 'text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
