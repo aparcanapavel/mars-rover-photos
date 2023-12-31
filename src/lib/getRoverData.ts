@@ -1,4 +1,5 @@
 'use server';
+import { revalidateTag } from 'next/cache';
 import { notFound } from 'next/navigation';
 
 export const getRoverData = async (
@@ -6,7 +7,6 @@ export const getRoverData = async (
   sol?: number,
   page?: number
 ) => {
-  
   try{
     const res: Response = await fetch(
       process.env.NASA_ROVER_DATA_ENDPOINT 
@@ -33,6 +33,8 @@ export const getRoverData = async (
     const responseBody = await res.json();
 
     if (responseBody && responseBody?.photos !== null) {
+      // console.log('revalidating tag', roverName);
+      revalidateTag(roverName);
       return responseBody?.photos;
     }   
 

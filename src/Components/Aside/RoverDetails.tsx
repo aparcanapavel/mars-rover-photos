@@ -1,6 +1,7 @@
 import React from "react";
 import Image from 'next/image';
 import { nFormatter, parseDate } from "@/utils/misc";
+import { RoverManifestDataType } from "@/app/rover/[rover-name]/page";
 
 type RoverImgType = {
   [key: string]: {
@@ -26,36 +27,29 @@ const roverImgs: RoverImgType = {
 
 type RoverDetailsProps = {
   roverName: string;
-  roverManifestData: {
-    name: string;
-    total_photos: number;
-    status: string;
-    max_sol: number;
-    launch_date: string;
-    landing_date: string;
-  }
+  roverManifestData: RoverManifestDataType
 }
 
 const RoverDetails: React.FC<RoverDetailsProps> = ({
   roverName,
   roverManifestData
 }: RoverDetailsProps) => (
-  <aside className="cardItem">
-    <div className="flex flex-row items-center mb-4">
-      <Image 
-        src={roverImgs[roverName].sharp} 
-        blurDataURL={roverImgs[roverName].blur} 
-        width={200} 
-        height={200} 
-        alt={roverManifestData.name}
-        className="rounded-full border-solid border-2 border-mainBG"
-      />
-      <div className="flex flex-row ml-4">
+  <aside className="cardItem max-sm:w-full max-sm:text-xs">
+    <div className="flex flex-row items-center mb-4 max-[375px]:flex-col max-[375px]:items-start">
+      <div className="rounded-full border-solid border-2 border-mainBG relative aspect-square w-full max-w-[200px] overflow-hidden max-sm:max-w-[100px]">
+        <Image 
+          src={roverImgs[roverName].sharp} 
+          blurDataURL={roverImgs[roverName].blur} 
+          fill
+          alt={roverManifestData.name}
+        />
+      </div>
+      <div className="flex flex-row max-[375px]:ml-0 ml-4 max-[375px]:mt-4">
         <div className="flex flex-col items-center">
           <p>{nFormatter(roverManifestData.total_photos)}</p>
           <p className="font-bold">Total Photos</p>
         </div>
-        <div className="flex flex-col items-center md:mx-4 lg:mx-6">
+        <div className="flex flex-col items-center mx-4 lg:mx-6">
           <p>{roverManifestData.status}</p>
           <p className="font-bold">Status</p>
         </div>

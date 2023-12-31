@@ -1,4 +1,6 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { DateTimeFormatOptions } from "./types";
+import { ReadonlyURLSearchParams } from "next/navigation";
 
 export function capitalizeFirstLetter(s: string) {
   return s[0].toUpperCase() + s.slice(1);
@@ -30,4 +32,39 @@ export function parseDate(date: string) {
    "en-US", 
    dateOpts
  )
+}
+
+const setParams = (
+  params: URLSearchParams,
+  newSol: string, 
+  newPage: string, 
+) => {
+  params.set('sol', newSol);
+  params.set('page', newPage);
+
+  return params.toString();
+}
+
+export const addSearchParams = (
+  newSol: string,
+  newPage: string,
+  router: AppRouterInstance,
+  pathname: string,
+  searchParams: ReadonlyURLSearchParams
+) => {
+  const params = new URLSearchParams(searchParams);
+
+  if(params.get('sol') && params.get('page')) {
+    return router.replace(
+      pathname
+      + '?'
+      + setParams(params, newSol, newPage)
+    );
+  }
+
+  return router.push(
+    pathname 
+    + '?' 
+    + setParams(params, newSol, newPage)
+  );
 }

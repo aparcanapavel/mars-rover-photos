@@ -47,4 +47,22 @@ body {
     background-color: transparent;
     @apply w-20 p-1 rounded-md border-2 border-accent-200
   }
+
+  .mars-tooltip {
+    @apply pointer-events-none absolute top-7 w-max opacity-0 transition-opacity bg-accent-300 py-1 px-2 rounded-md
+  }
+
+  .tooltip-btn {
+    @apply hover:bg-accent rounded-md p-[0.15rem]
+  }
+
+  .tooltip-btn[aria-disabled="true"] {
+    @apply pointer-events-none opacity-50 cursor-not-allowed select-none
+  }
+  .tooltip-btn[aria-disabled="true"] ~ .mars-tooltip {
+    @apply opacity-0
+  }
+  .tooltip-btn:hover ~ .mars-tooltip {
+    @apply opacity-100
+  }
 }

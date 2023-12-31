@@ -3,9 +3,8 @@ import { MetaDataGeneratorProps } from "@/utils/types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import RoverDetails from "@/Components/Aside/RoverDetails";
-import { Suspense } from "react";
 import RoverStage from "@/Components/Stage/RoverStage";
-import NumberSelector from "@/Components/Stage/NumberSelector";
+import { getRoverData } from "@/lib/getRoverData";
 
 
 const getRoverManifestData = async (roverName: string) => {
@@ -33,7 +32,7 @@ const getRoverManifestData = async (roverName: string) => {
     const responseBody = await res.json();
 
     if (responseBody && responseBody?.photo_manifest !== null) {
-      delete responseBody?.photo_manifest['photos'];
+      // console.log('res length', responseBody?.photo_manifest.photos.length)
       return responseBody?.photo_manifest;
     }   
 
@@ -44,35 +43,73 @@ const getRoverManifestData = async (roverName: string) => {
   }
 }
 
+type RoverManifestPhotosType = {
+  sol: number;
+  earth_date: string;
+  total_photos: number;
+  cameras: Array<
+    "FHAZ" 
+    | "RHAZ" 
+    | "MAST" 
+    | "CHEMCAM" 
+    | "MAHLI"
+    | "MARDI"
+    | "NAVCAM" 
+    | "PANCAM"
+    | "MINITES"
+  >;
+}
+export type RoverManifestDataType = {
+  name: string;
+  total_photos: number;
+  status: string;
+  max_sol: number;
+  launch_date: string;
+  landing_date: string;
+  photos: RoverManifestPhotosType[];
+}
 
 export default async function RoverPage({ params, searchParams }: MetaDataGeneratorProps){
   const roverName: string = params['rover-name'];
   const isMobile = searchParams?.viewport === 'mobile';
-  const sol = searchParams?.sol ? Number(searchParams?.sol) : 1;
-  const page = searchParams?.page ? Number(searchParams?.page) : 1;
+  const initialSol = searchParams?.sol ? Number(searchParams?.sol) : 0;
+  const initialPage = searchParams?.page ? Number(searchParams?.page) : 1;
 
-  const roverManifestData = await getRoverManifestData(roverName);
+  const roverManifestData = getRoverManifestData(roverName);
+  const roverData = getRoverData(roverName, initialSol, initialPage);
+
+  const [rover, roverManifest] = await Promise.all([roverData, roverManifestData]);
+  
+  const solDetails = roverManifest.photos
+    .find((sols: RoverManifestPhotosType) => sols.sol === initialSol);
+  
+  const totalPhotos = solDetails?.total_photos || 0;
+  
+  const totalPages = 
+    Math.ceil(solDetails?.total_photos / 25) || 1;
+
+  const photoStart = initialPage === 1 ? 1 : (initialPage - 1) * 25 + 1;
+  const photoEnd = initialPage === totalPages 
+    ? totalPhotos
+    : initialPage * 25;
 
   return (
     <Layout isMobile={isMobile}>
       <RoverDetails 
         roverName={roverName}
-        roverManifestData={roverManifestData}
+        roverManifestData={roverManifest}
       />
-      <NumberSelector 
-        solTotal={roverManifestData?.max_sol}
+      <RoverStage 
         roverName={roverName}
-        initialSol={sol}
-        page={page}
+        initialSol={initialSol}
+        initialPage={initialPage}
+        roverManifestData={roverManifest}
+        photoStart={photoStart}
+        photoEnd={photoEnd}
+        roverData={rover}
+        totalPhotos={totalPhotos}
+        // getSolImages={getSolImages}
       />
-      <Suspense fallback={<div>Loading...</div>}>
-        <RoverStage 
-          roverName={roverName}
-          solTotal={roverManifestData?.max_sol}
-          sol={sol}
-          page={page}
-        />
-      </Suspense>
       <Link href={'/'}>Back to Home</Link>
     </Layout>
   );

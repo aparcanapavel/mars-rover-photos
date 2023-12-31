@@ -54,7 +54,7 @@ export default function Layout({ children, isMobile }: LayoutProps) {
   return (
     <>
       <Header isMobile={isBreakpoint || isMobile}/>
-      <div className='flex row py-4'>
+      <div className='flex row py-4 max-sm:text-xs'>
         {(!isBreakpoint || !isMobile) && <MainAside />}
         <Stage isMobile={isBreakpoint || isMobile}>{children}</Stage>
       </div>
