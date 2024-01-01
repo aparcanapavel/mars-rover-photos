@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='overflow-hidden'>
-      <body className={`${inter.className} bg-mainBG h-dvh pt-4 overflow-auto`}>
+      <body className={`${inter.className} h-dvh pt-4 overflow-auto bg-mainBG gradient`}>
         <main className='container mx-auto max-sm:px-2  min-h-[calc(100vh-2rem)] lg:px-4'>
           {children}
         </main>
@@ -35,8 +35,11 @@ export default function RootLayout({
           fill
           style={{ 
             objectFit: 'cover',
-            zIndex: -1
+            zIndex: -1,
+            maxHeight: '555px',
+            top: 0,
           }}
+          priority
         />
         <span
           style={{
@@ -44,7 +47,7 @@ export default function RootLayout({
             top: 0,
             left: 0,
             width: '100%',
-            height: '100%',
+            height: '555px',
             zIndex: -1,
             pointerEvents: 'none',
             backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgb(255 255 255 / 0%) 0%, rgb(162, 162, 162,0) 33.33%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%)'

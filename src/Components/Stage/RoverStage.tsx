@@ -4,6 +4,8 @@ import { RoverManifestDataType } from "@/app/rover/[rover-name]/page";
 import RoverImages from "./RoverImages";
 import SolSelector from "./SolSelector";
 import Pagination from "./Pagination";
+import { RoverDataType, stageDetailsType } from "@/utils/types";
+
 
 type RoverStageProps = {
   roverName: string;
@@ -11,34 +13,45 @@ type RoverStageProps = {
   initialSol: number;
   initialPage: number;
   roverData: RoverDataType[];
-  photoStart: number;
-  photoEnd: number;
   totalPhotos: number;
 }
 
-export type RoverDataType = {
-  id: number;
-  sol: number;
-  camera: {
-    id: number;
-    name: string;
-    rover_id: number;
-    full_name: string;
-  };
-  img_src: string;
-  earth_date: string;
-  rover: {
-    id: number;
-    name: string;
-    landing_date: string;
-    launch_date: string;
-    status: string;
-  };
+type ImagesPagniatorProps = {
+  setStageDetails: (newDetails: stageDetailsType) => void;
+  stageDetails: stageDetailsType 
 }
 
-export type stageDetailsType = {
-  isLoading: boolean;
+const ImagesPaginator: React.FC<Omit<RoverStageProps, 'roverData'> & ImagesPagniatorProps> = ({ 
+  roverName,
+  initialSol,
+  initialPage,
+  roverManifestData,
+  totalPhotos,
+  setStageDetails,
+  stageDetails
+}) => {
+  return (
+    <div className="flex max-sm:w-full max-sm:flex-col max-sm:items-start flex-row items-center mt-4 cardItem justify-between">
+      <SolSelector 
+        roverManifestData={roverManifestData}
+        roverName={roverName}
+        initialSol={initialSol}
+        initialPage={initialPage}
+        setStageDetails={setStageDetails}
+        stageDetails={stageDetails}
+      />
+      <Pagination
+        initialSol={initialSol}
+        roverName={roverName}
+        initialPage={initialPage}
+        totalPhotos={totalPhotos}
+        setStageDetails={setStageDetails}
+        stageDetails={stageDetails}
+      />
+    </div>
+  )
 }
+
 
 const RoverStage: React.FC<RoverStageProps> = ({ 
   roverName,
@@ -46,8 +59,6 @@ const RoverStage: React.FC<RoverStageProps> = ({
   initialPage,
   roverManifestData,
   roverData,
-  photoStart,
-  photoEnd,
   totalPhotos
 }) => {
 
@@ -61,29 +72,26 @@ const RoverStage: React.FC<RoverStageProps> = ({
 
   return (
     <>
-      <div className="flex max-sm:w-full max-sm:flex-col max-sm:items-start flex-row items-center mt-4 cardItem justify-between">
-        <SolSelector 
-          roverManifestData={roverManifestData}
-          roverName={roverName}
-          initialSol={initialSol}
-          initialPage={initialPage}
-          setStageDetails={setStageDetails}
-        />
-        <Pagination
-          initialSol={initialSol}
-          roverName={roverName}
-          initialPage={initialPage}
-          totalPhotos={totalPhotos}
-          setStageDetails={setStageDetails}
-        />
-      </div>
-      <RoverImages 
-        initialSol={initialSol}
-        initialPage={initialPage}
-        roverData={roverData}
+      <ImagesPaginator
         roverManifestData={roverManifestData}
         roverName={roverName}
+        initialSol={initialSol}
+        initialPage={initialPage}
+        setStageDetails={setStageDetails}
+        stageDetails={stageDetails}
+        totalPhotos={totalPhotos}
+      />
+      <RoverImages 
+        roverData={roverData}
         isLoading={stageDetails.isLoading}
+      />
+      <ImagesPaginator
+        roverManifestData={roverManifestData}
+        roverName={roverName}
+        initialSol={initialSol}
+        initialPage={initialPage}
+        setStageDetails={setStageDetails}
+        stageDetails={stageDetails}
         totalPhotos={totalPhotos}
       />
     </>

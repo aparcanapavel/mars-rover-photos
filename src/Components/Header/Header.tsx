@@ -7,8 +7,8 @@ import { Menu, Transition } from '@headlessui/react'
 export default function Header({ isMobile }: { isMobile: boolean }) {
   
   return (
-    <div className="header cardItem flex row justify-between items-center max-lg:py-2">
-      <h1 className="text-xl font-medium">Mars RoverGram</h1>
+    <header className="header cardItem flex row justify-between items-center max-lg:py-2" data-testid="header">
+      <h1 className="text-xl font-medium" id="MarsRoverGram">Mars RoverGram</h1>
       {isMobile && (
         <Menu as="div" className="relative md:inline-block lg:hidden text-left leading-none">
           <div>
@@ -16,6 +16,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
               className="inline-flex w-full justify-center rounded-md bg-white
               text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none
               focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+              aria-label="Open Options Menu"
             >
               <Image
                 placeholder="blur"
@@ -39,7 +40,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items 
-              className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-cardBG shadow-2xl">
+              className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-cardBG shadow-2xl max-sm:max-w-[200px]">
               <div className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -97,6 +98,6 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
           </Transition>
         </Menu>
       )}
-    </div>
+    </header>
   );
 }

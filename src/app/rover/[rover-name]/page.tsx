@@ -82,14 +82,6 @@ export default async function RoverPage({ params, searchParams }: MetaDataGenera
     .find((sols: RoverManifestPhotosType) => sols.sol === initialSol);
   
   const totalPhotos = solDetails?.total_photos || 0;
-  
-  const totalPages = 
-    Math.ceil(solDetails?.total_photos / 25) || 1;
-
-  const photoStart = initialPage === 1 ? 1 : (initialPage - 1) * 25 + 1;
-  const photoEnd = initialPage === totalPages 
-    ? totalPhotos
-    : initialPage * 25;
 
   return (
     <Layout isMobile={isMobile}>
@@ -102,12 +94,9 @@ export default async function RoverPage({ params, searchParams }: MetaDataGenera
         initialSol={initialSol}
         initialPage={initialPage}
         roverManifestData={roverManifest}
-        photoStart={photoStart}
-        photoEnd={photoEnd}
         roverData={rover}
         totalPhotos={totalPhotos}
-      />
-      <Link href={'/'}>Back to Home</Link>
+      /> 
     </Layout>
   );
 };

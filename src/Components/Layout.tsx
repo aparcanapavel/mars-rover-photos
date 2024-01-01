@@ -42,7 +42,7 @@ const useMediaQuery = (width: number) => {
       // compatibility for browser that dont have removeEventListener
       return () => media.removeListener(updateTarget);
     }
-  }, []);
+  }, [width, updateTarget]);
 
   return targetReached;
 };
@@ -56,7 +56,7 @@ export default function Layout({ children, isMobile }: LayoutProps) {
       <Header isMobile={isBreakpoint || isMobile}/>
       <div className='flex row py-4 max-sm:text-xs'>
         {(!isBreakpoint || !isMobile) && <MainAside />}
-        <Stage isMobile={isBreakpoint || isMobile}>{children}</Stage>
+        <Stage>{children}</Stage>
       </div>
     </>
   );

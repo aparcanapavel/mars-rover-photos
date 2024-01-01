@@ -8,7 +8,7 @@ import {
   useSearchParams, 
   useRouter 
 } from 'next/navigation';
-import { stageDetailsType } from "./RoverStage";
+import { stageDetailsType } from "../../utils/types";
 
 type PaginationProps = {
   roverName: string;
@@ -16,6 +16,7 @@ type PaginationProps = {
   initialPage: number;
   totalPhotos: number;
   setStageDetails: (newDetails: stageDetailsType) => void;
+  stageDetails: stageDetailsType
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -23,7 +24,8 @@ const Pagination: React.FC<PaginationProps> = ({
   initialSol,
   initialPage,
   totalPhotos,
-  setStageDetails
+  setStageDetails,
+  stageDetails
 }) => {
 
   const router = useRouter()
@@ -64,15 +66,21 @@ const Pagination: React.FC<PaginationProps> = ({
   
   return (
     <div className="flex flex-row items-center max-sm:mt-4">
-      <p>
-        {totalPhotos && displayIdxStart} - {displayIdxEnd} of {totalPhotos}
-      </p>
+      {stageDetails.isLoading ? (
+        <div className="w-[100px] h-[27px]">
+          <div className="w-full h-full bg-cardBG-400 animate-pulse rounded-sm"></div>
+        </div>
+      ) : (
+        <p>
+          {totalPhotos && displayIdxStart} - {displayIdxEnd} of {totalPhotos}
+        </p>
+      )}
       <div className="flex flex-row items-center ml-4">
         <div className="group relative flex flex-col items-center">
           <button 
             className="tooltip-btn"
             onClick={() => handlePagination(-1)}
-            aria-disabled={initialPage === 1}
+            aria-disabled={stageDetails.isLoading || initialPage === 1}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -88,7 +96,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <button 
             className="tooltip-btn"
             onClick={() => handlePagination(1)}
-            aria-disabled={initialPage === Math.ceil(totalPhotos / 25)}
+            aria-disabled={stageDetails.isLoading || displayIdxEnd === totalPhotos}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
