@@ -1,42 +1,45 @@
 
 "use client";
 import getImagesByPage from "@/app/actions/getImagesByPage";
-import { RoverManifestDataType } from "@/app/rover/[rover-name]/page";
 import { addSearchParams } from "@/utils/misc";
-import React from "react";
+import React, { startTransition } from "react";
 import {
   usePathname, 
   useSearchParams, 
   useRouter 
 } from 'next/navigation';
+import { stageDetailsType } from "./RoverStage";
 
 type PaginationProps = {
   roverName: string;
   initialSol: number;
   initialPage: number;
-  photoStart: number;
-  photoEnd: number;
-  roverManifestData: RoverManifestDataType;
   totalPhotos: number;
+  setStageDetails: (newDetails: stageDetailsType) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   roverName,
   initialSol,
   initialPage,
-  photoStart,
-  photoEnd,
-  roverManifestData,
-  totalPhotos
+  totalPhotos,
+  setStageDetails
 }) => {
-  // const totalPhotos = roverManifestData.photos[initialSol].total_photos;
 
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()!
 
   const handlePagination = async (direction: number) => {
-    const newPage = initialPage + direction;
+    startTransition(() => {
+      setStageDetails({
+        isLoading: true
+      });
+    });
+        
+    const newPage = Number(searchParams.get('page')) + direction 
+      || initialPage + direction;
+    
     if(newPage < 1 || newPage > Math.ceil(totalPhotos / 25)) return;
 
     addSearchParams(
@@ -53,11 +56,16 @@ const Pagination: React.FC<PaginationProps> = ({
       page: newPage
     });
   }
+
+  const currentPage = searchParams.get('page') || initialPage;
+  const displayIdxStart = ((Number(currentPage) - 1) * 25) + 1;
+
+  const displayIdxEnd = displayIdxStart + 24 < totalPhotos ? displayIdxStart + 24 : totalPhotos;
   
   return (
     <div className="flex flex-row items-center max-sm:mt-4">
       <p>
-        {photoStart} - {photoEnd} of {totalPhotos}
+        {totalPhotos && displayIdxStart} - {displayIdxEnd} of {totalPhotos}
       </p>
       <div className="flex flex-row items-center ml-4">
         <div className="group relative flex flex-col items-center">

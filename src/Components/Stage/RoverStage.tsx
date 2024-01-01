@@ -72,11 +72,9 @@ const RoverStage: React.FC<RoverStageProps> = ({
         <Pagination
           initialSol={initialSol}
           roverName={roverName}
-          photoStart={photoStart}
           initialPage={initialPage}
-          photoEnd={photoEnd}
-          roverManifestData={roverManifestData}
           totalPhotos={totalPhotos}
+          setStageDetails={setStageDetails}
         />
       </div>
       <RoverImages 

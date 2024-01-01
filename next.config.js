@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'mars.nasa.gov',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }

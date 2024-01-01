@@ -15,8 +15,6 @@ type RoverImagesProps = {
 
 const RoverImages: React.FC<RoverImagesProps> = ({ 
   roverData,
-  initialSol,
-  roverManifestData,
   isLoading,
   totalPhotos
 }) => {

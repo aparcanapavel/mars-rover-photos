@@ -29,8 +29,6 @@ export default async function getSolImages(
     sol: Number(formData?.get('sol')),
   });
   
-  console.log('validatedFields.success', validatedFields.success);
-  // await new Promise((res) => setTimeout(res, 5000));
 
   if (!validatedFields.success) {
     return {
@@ -38,9 +36,7 @@ export default async function getSolImages(
     }
   }
 
-  const res = await getRoverData(bindedArgs.roverName, validatedFields.data.sol, bindedArgs.page);
-
-  console.log('res', res);
+  await getRoverData(bindedArgs.roverName, validatedFields.data.sol, bindedArgs.page);
 
   return {
     message: 'success'
