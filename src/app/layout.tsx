@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   title: 'Mars Rovergram',
   description: 'Images taken by the Mars Rovers',
 }
-// I need to show an image of mars in the background within the body
-// I also need to add a gradient on top of the image. This needs to go from top to bottom, transparent to black
+
 export default function RootLayout({
   children,
 }: {

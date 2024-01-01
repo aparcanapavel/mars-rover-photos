@@ -6,7 +6,6 @@ import RoverDetails from "@/Components/Aside/RoverDetails";
 import RoverStage from "@/Components/Stage/RoverStage";
 import { getRoverData } from "@/lib/getRoverData";
 
-
 const getRoverManifestData = async (roverName: string) => {
   
   try{
@@ -32,7 +31,6 @@ const getRoverManifestData = async (roverName: string) => {
     const responseBody = await res.json();
 
     if (responseBody && responseBody?.photo_manifest !== null) {
-      // console.log('res length', responseBody?.photo_manifest.photos.length)
       return responseBody?.photo_manifest;
     }   
 
@@ -108,7 +106,6 @@ export default async function RoverPage({ params, searchParams }: MetaDataGenera
         photoEnd={photoEnd}
         roverData={rover}
         totalPhotos={totalPhotos}
-        // getSolImages={getSolImages}
       />
       <Link href={'/'}>Back to Home</Link>
     </Layout>

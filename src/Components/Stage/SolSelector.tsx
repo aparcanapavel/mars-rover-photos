@@ -13,7 +13,7 @@ import { stageDetailsType } from './RoverStage';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  // console.log('button pending', pending)
+  
   return (
     <button 
       type="submit" 
