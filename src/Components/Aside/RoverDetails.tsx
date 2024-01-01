@@ -42,6 +42,7 @@ const RoverDetails: React.FC<RoverDetailsProps> = ({
           blurDataURL={roverImgs[roverName].blur} 
           fill
           alt={roverManifestData.name}
+          sizes='(max-width: 640px) 96px, (max-width: 900px) 196px,(max-width: 1280px) 196px,(max-width: 1536px) 196px, 196px'
         />
       </div>
       <div className="flex flex-row max-[375px]:ml-0 ml-4 max-[375px]:mt-4">

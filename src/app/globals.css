@@ -18,18 +18,21 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+}
+
+.gradient {
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb))
 }
 
 @layer components {
   /* This won't be included in your compiled CSS unless you actually use it */
   .cardItem {
-    background-color: theme('colors.cardBG');
+    background-color: theme('colors.cardBG.DEFAULT');
     border-radius: theme('borderRadius.md');
     padding: theme('spacing.4');
     @apply transition-colors shadow-md shadow-white
@@ -64,5 +67,9 @@ body {
   }
   .tooltip-btn:hover ~ .mars-tooltip {
     @apply opacity-100
+  }
+
+  .backdrop-gradient {
+    background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgb(255 255 255 / 0%) 0%, rgb(162, 162, 162,0) 33.33%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%);
   }
 }

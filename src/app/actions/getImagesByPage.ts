@@ -6,11 +6,11 @@ const schema = z.object({
   sol: z.number({
     required_error: "Sol is required",
     invalid_type_error: "Sol must be a number",
-  }).positive().min(0),// needs to validate max sol
+  }).positive().min(0),
   page: z.number({
     required_error: "Page is required",
     invalid_type_error: "Page must be a number",
-  }).positive().min(1),// needs to validate maxpage
+  }).positive().min(1),
   roverName: z.string({
     required_error: "roverName is required",
     invalid_type_error: "roverName must be a string",
