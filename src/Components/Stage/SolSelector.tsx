@@ -9,21 +9,21 @@ import {
   useRouter 
 } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
-import { stageDetailsType } from './RoverStage';
+import { stageDetailsType } from '../../utils/types';
 
-function SubmitButton() {
+function SubmitButton({ stageIsLoading }: { stageIsLoading: boolean }) {
   const { pending } = useFormStatus();
   
   return (
     <button 
       type="submit" 
-      aria-disabled={pending}
-      className='bg-accent hover:bg-accent-300 transition-all duration-300 text-gray-100 px-3 py-1 rounded-lg'
+      aria-disabled={stageIsLoading || pending}
+      className='bg-accent hover:bg-accent-300 transition-all duration-300 text-gray-100 px-3 py-1 tooltip-btn'
     >
       View
     </button>
   );
-};
+}
 
 const addParamsAndSubmit = async (
   formData: FormData,
@@ -45,6 +45,7 @@ type SolSelectorProps = {
   initialSol: number;
   initialPage: number;
   setStageDetails: (newDetails: stageDetailsType) => void;
+  stageDetails: stageDetailsType
 }
 
 const initialState = {
@@ -57,6 +58,7 @@ const SolSelector = ({
   initialSol,
   initialPage,
   setStageDetails,
+  stageDetails
 }: SolSelectorProps) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -82,14 +84,18 @@ const SolSelector = ({
       <input
         id='sol-number-selector'
         type="number"
-        className="sol-number-selector w-[100px] ml-2 max-[375px]:w-[75px]"
+        className="sol-number-selector w-[100px] ml-2 max-[375px]:w-[75px] py-[2.5px]"
         name='sol'
         min={'0'}
         max={solTotal.toString()}
         defaultValue={initialSol.toString()}
+        aria-disabled={stageDetails.isLoading}
+        disabled={stageDetails.isLoading}
       />
       <p className='mx-2'>of {solTotal}</p>
-      <SubmitButton />
+      <SubmitButton 
+        stageIsLoading={stageDetails.isLoading}
+      />
     </form>
   );
 };
