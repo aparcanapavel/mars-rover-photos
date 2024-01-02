@@ -2,6 +2,10 @@ import { NextRequest, NextResponse, userAgent } from 'next/server';
  
 export function middleware(request: NextRequest) {
   // coming from https://github.com/vercel/next.js/blob/canary/examples/with-strict-csp/middleware.js
+  /**
+   * CSP style-src include 'unsafe-inline' because Next/Image adds inline styles as attributes
+   */
+  
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   const cspHeader = `
     default-src 'self';
@@ -16,7 +20,7 @@ export function middleware(request: NextRequest) {
     block-all-mixed-content;
     upgrade-insecure-requests;
   `
-  // Replace newline characters and spaces
+  
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, ' ')
     .trim()
