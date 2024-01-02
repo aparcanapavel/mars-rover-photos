@@ -19,6 +19,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className='overflow-hidden'>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className={`${inter.className} h-dvh pt-4 overflow-auto bg-mainBG gradient relative`}>
         <main className='container mx-auto max-sm:px-2  min-h-[calc(100vh-2rem)] lg:px-4'>
           {children}
