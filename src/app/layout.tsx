@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link';
-import Image from 'next/image'
+import Image from 'next/image';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +16,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en" className='overflow-hidden'>
       <body className={`${inter.className} h-dvh pt-4 overflow-auto bg-mainBG gradient relative`}>
@@ -42,20 +43,12 @@ export default function RootLayout({
               maxHeight: '555px',
               top: 0,
             }}
+            className='w-full h-full object-cover'
             sizes='(max-width: 640px) 640px, (max-width: 900px) 900px,(max-width: 1280px) 1280px,(max-width: 1536px) 1536px, 100vw'
             priority
           />
           <span
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '555px',
-              zIndex: -1,
-              pointerEvents: 'none',
-              backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 0%, rgb(255 255 255 / 0%) 0%, rgb(162, 162, 162,0) 33.33%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%, rgb(0, 0, 0) 100%)'
-            }}
+            className='fixed top-0 left-0 h-[555px] w-full -z-1 pointer-events-none backdrop-gradient'
           ></span>
         </div>
       </body>
