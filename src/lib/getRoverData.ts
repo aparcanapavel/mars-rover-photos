@@ -31,8 +31,6 @@ export const getRoverData = async (
     
     const responseBody = await res.json();
 
-    console.log('responseBody', responseBody);
-
     if (responseBody && responseBody?.photos !== undefined) {
       return responseBody?.photos;
     }   
