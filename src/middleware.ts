@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server';
  
-// coming from https://nextjs.org/docs/app/api-reference/functions/userAgent
 export function middleware(request: NextRequest) {
+  // coming from https://github.com/vercel/next.js/blob/canary/examples/with-strict-csp/middleware.js
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
-    style-src 'self' 'nonce-${nonce}' 'sha256-cx0I3P1w5Chw0W73bB4OsOwknPoLAC6BrcjkCADtYBQ=' 'sha256-ZDrxqUOB4m/L0JWL/+gS52g1CRH0l/qwMhjTw5Z/Fsc=' 'sha256-gYtmWpM51r/u3ZXhi7Qw9Eiwd5u72C9OTzM8HyQ+DA8=' 'unsafe-hashes';
+    style-src 'self' 'nonce-${nonce}' 'unsafe-inline';
     img-src 'self' blob: data:;
     font-src 'self';
     object-src 'none';
@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-`
+  `
   // Replace newline characters and spaces
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, ' ')
@@ -31,11 +31,12 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   if(url.pathname === '/' || url.pathname === '/rover/:path*') {
+    // coming from https://nextjs.org/docs/app/api-reference/functions/userAgent
     const { device } = userAgent(request)
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
     
     url.searchParams.set('viewport', viewport);
-    // return NextResponse.rewrite(url);
+    
     return NextResponse.rewrite(url);
   }
 
