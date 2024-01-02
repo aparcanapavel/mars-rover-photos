@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
+    script-src 'self' 'strict-dynamic';
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
     font-src 'self';
@@ -58,9 +58,6 @@ export function middleware(request: NextRequest) {
   return cspResponse
 }
 
-// export const config = {
-//   matcher: ['/', '/rover/:path*'],
-// }
 
 export const config = {
   matcher: [
@@ -72,7 +69,7 @@ export const config = {
      * - favicon.ico (favicon file)
      */
     {
-      source: '/((?!api|_next/image|favicon.ico).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
