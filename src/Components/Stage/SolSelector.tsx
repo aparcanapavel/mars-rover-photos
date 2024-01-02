@@ -23,7 +23,7 @@ function SubmitButton({ stageIsLoading }: { stageIsLoading: boolean }) {
       View
     </button>
   );
-};
+}
 
 const addParamsAndSubmit = async (
   formData: FormData,

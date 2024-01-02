@@ -26,5 +26,4 @@ describe('middleware', () => {
     expect(request.nextUrl.searchParams.get('viewport')).toBe('mobile');
   });
 
-  
 });

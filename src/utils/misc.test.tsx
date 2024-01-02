@@ -7,7 +7,7 @@ import { addSearchParams, capitalizeFirstLetter, nFormatter, parseDate } from '.
 describe('misc.ts', () => {
   describe('capitalizeFirstLetter(s: string)', () => {
     it('returns an empty string if argument is not a string', () => {
-      const result = capitalizeFirstLetter(123 as any); // using "any" for linter
+      const result = capitalizeFirstLetter(123 as unknown as string);
       expect(result).toBe('');
     });
   
@@ -25,7 +25,7 @@ describe('misc.ts', () => {
 
   describe('nFormatter', () => {
     it('returns the argument if it is not a number', () => {
-      const result = nFormatter('not a number' as any);
+      const result = nFormatter('not a number' as unknown as number);
       expect(result).toBe('not a number');
     });
   

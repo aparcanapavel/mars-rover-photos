@@ -1,6 +1,5 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { DateTimeFormatOptions } from "./types";
-import { ReadonlyURLSearchParams } from "next/navigation";
 
 export function capitalizeFirstLetter(s: string) {
   if (typeof s !== 'string') return ''; 

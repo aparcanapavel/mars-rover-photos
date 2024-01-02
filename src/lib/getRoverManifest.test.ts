@@ -61,7 +61,6 @@ describe('getRoverManifestData.ts', () => {
       photos: []
     };
 
-    // Mock the fetch function to return a response with JSON that contains a photo_manifest key
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: jest.fn().mockResolvedValue({ photo_manifest: roverManifestData }),

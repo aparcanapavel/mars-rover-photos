@@ -1,4 +1,3 @@
-// export const dynamicParams = true; 
 import Layout from "@/Components/Layout";
 import { MetaDataGeneratorProps } from "@/utils/types";
 import RoverDetails from "@/Components/Aside/RoverDetails";
@@ -32,14 +31,6 @@ export type RoverManifestDataType = {
   photos: RoverManifestPhotosType[];
 }
 
-// export function generateStaticParams() {
-//   return [
-//     { "rover-name": 'curiosity' }, 
-//     { "rover-name": 'opportunity' }, 
-//     { "rover-name": 'spirit' }
-//   ];
-// }
-
 export default async function RoverPage({ params, searchParams }: MetaDataGeneratorProps){
   const roverName: string = params['rover-name'];
   const isMobile = searchParams?.viewport === 'mobile';
@@ -72,4 +63,4 @@ export default async function RoverPage({ params, searchParams }: MetaDataGenera
       /> 
     </Layout>
   );
-};
+}
