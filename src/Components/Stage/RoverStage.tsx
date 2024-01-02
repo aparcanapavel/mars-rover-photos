@@ -85,15 +85,17 @@ const RoverStage: React.FC<RoverStageProps> = ({
         roverData={roverData}
         isLoading={stageDetails.isLoading}
       />
-      <ImagesPaginator
-        roverManifestData={roverManifestData}
-        roverName={roverName}
-        initialSol={initialSol}
-        initialPage={initialPage}
-        setStageDetails={setStageDetails}
-        stageDetails={stageDetails}
-        totalPhotos={totalPhotos}
-      />
+      {totalPhotos > 0 && (
+        <ImagesPaginator
+          roverManifestData={roverManifestData}
+          roverName={roverName}
+          initialSol={initialSol}
+          initialPage={initialPage}
+          setStageDetails={setStageDetails}
+          stageDetails={stageDetails}
+          totalPhotos={totalPhotos}
+        />
+      )}
     </>
   );
 }

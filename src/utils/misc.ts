@@ -14,7 +14,7 @@ export function nFormatter(num: number): string | number {
   if (typeof num !== 'number') return num;
 
   if (num >= 1000000000) {
-    return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
   }
   if (num >= 1000000) {
     return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
@@ -29,14 +29,17 @@ export function nFormatter(num: number): string | number {
 const dateOpts: DateTimeFormatOptions = { 
   year: "numeric", 
   month: "long", 
-  day: 'numeric'
+  day: 'numeric',
+  timeZone: "UTC"
 };
 
-export function parseDate(date: string) {
-  return new Date(date).toLocaleDateString(
+export function parseDate(date: string): string {
+  const dateOut = new Date((date)).toLocaleDateString(
     "en-US", 
     dateOpts
- )
+  );
+
+ return dateOut;
 }
 
 const setParams = (
@@ -55,17 +58,9 @@ export const addSearchParams = (
   newPage: string,
   router: AppRouterInstance,
   pathname: string,
-  searchParams: ReadonlyURLSearchParams
+  searchParams: URLSearchParams
 ) => {
   const params = new URLSearchParams(searchParams);
-
-  if(params.get('sol') && params.get('page')) {
-    return router.replace(
-      pathname
-      + '?'
-      + setParams(params, newSol, newPage)
-    );
-  }
 
   return router.push(
     pathname 

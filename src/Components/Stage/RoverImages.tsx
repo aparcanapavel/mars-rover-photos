@@ -27,6 +27,7 @@ const RoverImages: React.FC<RoverImagesProps> = ({
               src={photo.img_src}
               alt={photo.camera.full_name}
               fill
+              sizes='(max-width: 640px) 33vw, (max-width: 900px) 256px,(max-width: 1280px) 327px,(max-width: 1536px) 395px, 395px'
             />
           </div>
         ))}

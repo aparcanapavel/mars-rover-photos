@@ -2,9 +2,12 @@
   "name": "mars-rover-photos",
   "version": "0.1.0",
   "private": true,
+  "email": "aparcanapavel@gmail.com",
+  "url": "mars-rovers.pavelaparcana.com",
+  "description": "GUI to explore photos taken by the Mars Rovers. Images coming from the NASA API",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next lint && jest && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest"
@@ -16,6 +19,7 @@
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "sharp": "^0.33.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -30,6 +34,8 @@
     "eslint-config-next": "14.0.4",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jsdom": "^23.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",

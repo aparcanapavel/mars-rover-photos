@@ -1,45 +1,10 @@
+// export const dynamicParams = true; 
 import Layout from "@/Components/Layout";
 import { MetaDataGeneratorProps } from "@/utils/types";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 import RoverDetails from "@/Components/Aside/RoverDetails";
 import RoverStage from "@/Components/Stage/RoverStage";
 import { getRoverData } from "@/lib/getRoverData";
-
-const getRoverManifestData = async (roverName: string) => {
-  
-  try{
-    const res: Response = await fetch(
-      process.env.NASA_ROVER_DATA_ENDPOINT 
-        + '/manifests/' 
-        + roverName 
-        + '?api_key=' 
-        + process.env.NASA_API_KEY,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        next: {
-          revalidate: 86400
-        },
-      }
-    );
-
-    if(!res.ok) throw new Error("Failed to fetch rover data");
-    
-    const responseBody = await res.json();
-
-    if (responseBody && responseBody?.photo_manifest !== null) {
-      return responseBody?.photo_manifest;
-    }   
-
-    throw new Error("Rover not found");
-    
-  } catch (e) {
-    notFound();
-  }
-}
+import { getRoverManifestData } from "@/lib/getRoverManifest";
 
 type RoverManifestPhotosType = {
   sol: number;
@@ -66,6 +31,14 @@ export type RoverManifestDataType = {
   landing_date: string;
   photos: RoverManifestPhotosType[];
 }
+
+// export function generateStaticParams() {
+//   return [
+//     { "rover-name": 'curiosity' }, 
+//     { "rover-name": 'opportunity' }, 
+//     { "rover-name": 'spirit' }
+//   ];
+// }
 
 export default async function RoverPage({ params, searchParams }: MetaDataGeneratorProps){
   const roverName: string = params['rover-name'];

@@ -10,6 +10,7 @@ export type DateTimeFormatOptions = {
   year?: "numeric" | "2-digit" | undefined;
   month?: "long" | "short" | "narrow" | "numeric" | "2-digit" | undefined;
   day?: "numeric" | "2-digit" | undefined;
+  timeZone: "UTC";
 }
 
 export type RoverDataType = {

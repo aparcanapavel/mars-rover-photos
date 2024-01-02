@@ -31,13 +31,15 @@ export const getRoverData = async (
     
     const responseBody = await res.json();
 
-    if (responseBody && responseBody?.photos !== null) {
+    if (responseBody && responseBody?.photos !== undefined) {
       return responseBody?.photos;
     }   
 
     throw new Error("Rover not found");
     
   } catch (e) {
+    console.error("getRoverData.ts: ",e);
+
     notFound();
   }
 }
