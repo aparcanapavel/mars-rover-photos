@@ -10,7 +10,7 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
     <header className="header cardItem flex row justify-between items-center max-lg:py-2" data-testid="header">
       <h1 className="text-xl font-medium" id="MarsRoverGram">Mars RoverGram</h1>
       {isMobile && (
-        <Menu as="div" className="relative md:inline-block lg:hidden text-left leading-none">
+        <Menu as="div" className="relative md:inline-block lg:hidden text-left leading-none -m-1 mt-0">
           <div>
             <Menu.Button
               className="inline-flex w-full justify-center rounded-md bg-white
@@ -18,15 +18,11 @@ export default function Header({ isMobile }: { isMobile: boolean }) {
               focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
               aria-label="Open Options Menu"
             >
-              <Image
-                placeholder="blur"
-                blurDataURL={'/headshot_1_1-blur.jpg'}
-                src={'/headshot_1_1.jpg'}
-                alt="Pavel"
-                width={40}
-                height={40}
-                className="rounded-full border-solid border-2 border-mainBG"
-              />
+              <span className="rounded-full border-solid border-2 border-mainBG bg-black-500 p-1" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+              </span>
             </Menu.Button>
           </div>
 
