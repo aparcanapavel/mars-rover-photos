@@ -1,5 +1,7 @@
 # mars-rover-photos
 
+![Netlify Status](https://api.netlify.com/api/v1/badges/7164c58d-5fa9-45dd-a5e8-81c56b1f26ed/deploy-status)
+
 Using https://api.nasa.gov/
 
 UI for Photos from the mars rover. Inspired by LinkedIn and Instagram.
