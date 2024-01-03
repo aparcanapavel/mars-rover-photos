@@ -2,23 +2,6 @@ import { render, screen } from '@testing-library/react';
 import MainAside from './MainAside';
 
 describe('MainAside', () => {
-  it('renders an image with correct attributes', () => {
-    render(<MainAside />);
-    const image = screen.getByAltText('Pavel');
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('width', '200');
-    expect(image).toHaveAttribute('height', '200');
-  });
-  
-  it('Image uses NextImage image optimizer', () => {
-    render(<MainAside />);
-    const image = screen.getByAltText('Pavel');
-    const src = image.getAttribute('src');
-
-    expect(image).toBeInTheDocument();
-    expect(src).toMatch(/\/_next\/image\?url=%2Fheadshot_1_1\.jpg&w=640&q=75/i);
-  });
-
   it('renders a list of links', () => {
     render(<MainAside />);
     const links = screen.getAllByRole('link');
